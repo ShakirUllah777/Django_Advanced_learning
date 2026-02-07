@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Blog</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        color: #1f2937;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 0 20px;
+        
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 42px;
+        margin-bottom: 50px;
+        color: #111827;
+      }
+
+      .post-card {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .post-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+      }
+
+      .post-title {
+        font-size: 26px;
+        margin-bottom: 8px;
+        color: #1e293b;
+      }
+
+      .post-date {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 16px;
+        display: block;
+      }
+
+      .post-content {
+        font-size: 17px;
+        line-height: 1.7;
+        color: #374151;
+      }
+
+      .divider {
+        margin-top: 25px;
+        border: none;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #e5e7eb,
+          transparent
+        );
+      }
+
+      .empty {
+        text-align: center;
+        font-size: 18px;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>📝 Simple Blog</h1>
+
+      {% for post in posts %}
+      <div class="post-card">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <small class="post-date">{{ post.created_at }}</small>
+        <p class="post-content">{{ post.content }}</p>
+        <hr class="divider" />
+      </div>
+      {% empty %}
+      <p class="empty">No posts yet.</p>
+      {% endfor %}
+    </div>
+  </body>
+</html>
