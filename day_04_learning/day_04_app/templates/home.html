@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    /* Navigation */
+    .navbar-custom {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      margin-bottom: 40px;
+      padding: 15px 30px;
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      margin-bottom: 50px;
+      color: white;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .header-section h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      letter-spacing: -1px;
+    }
+
+    .header-section p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    /* Container */
+    .content-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Post Card */
+    .post-card {
+      background: white;
+      border-radius: 16px;
+      padding: 35px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      border-left: 5px solid #667eea;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .post-card:hover {
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      transform: translateY(-8px);
+      border-left-color: #764ba2;
+    }
+
+    .post-card:hover::before {
+      left: 100%;
+    }
+
+    .post-title {
+      color: #2d3748;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+      transition: color 0.3s ease;
+    }
+
+    .post-card:hover .post-title {
+      color: #667eea;
+    }
+
+    /* Post Meta */
+    .post-meta {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 2px solid #f0f4f8;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: #718096;
+      font-weight: 500;
+    }
+
+    .meta-item i {
+      font-size: 1.1rem;
+      color: #667eea;
+    }
+
+    .meta-label {
+      color: #667eea;
+      font-weight: 700;
+    }
+
+    /* Post Content */
+    .post-content {
+      color: #4a5568;
+      line-height: 1.85;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 100px 40px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .empty-state i {
+      font-size: 5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .empty-state p {
+      font-size: 1.3rem;
+      color: #718096;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 30px;
+      color: white;
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .post-card {
+        padding: 25px;
+      }
+
+      .post-title {
+        font-size: 1.5rem;
+      }
+
+      .post-meta {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .empty-state {
+        padding: 60px 30px;
+      }
+
+      .empty-state i {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar-custom">
+    <div class="content-wrapper">
+      <div class="navbar-brand">
+        <i class="fas fa-pen-fancy"></i> Simple Blog
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="header-section">
+    <h1>📝 Blog Hub</h1>
+    <p>Explore insightful articles and stories</p>
+  </div>
+
+  <!-- Posts Container -->
+  <div class="content-wrapper">
+    {% for post in posts %}
+      <div class="post-card">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <div class="post-meta">
+          <div class="meta-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span class="meta-label">{{ post.created_at|date:"M d, Y" }}</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-tag"></i>
+            <span class="meta-label">{{ post.category.name }}</span>
+          </div>
+        </div>
+        <p class="post-content">{{ post.content }}</p>
+      </div>
+    {% empty %}
+      <div class="empty-state">
+        <i class="fas fa-inbox"></i>
+        <p>No blog posts available yet. Check back soon! 🚀</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2026 Simple Blog. All rights reserved. ❤️</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
