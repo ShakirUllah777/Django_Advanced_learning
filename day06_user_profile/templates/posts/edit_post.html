@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="max-width:600px; margin:50px auto; padding:30px; background-color:#f8fafc; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center; color:#1e40af; margin-bottom:25px; font-size:2rem;">Edit Post</h2>
+    <form method="POST" style="display:flex; flex-direction:column; gap:15px;">
+        {% csrf_token %}
+        <input name="title" value="{{ post.title }}" placeholder="Title" style="padding:10px 15px; border:1px solid #cbd5e1; border-radius:8px; font-size:1rem;" required>
+        <textarea name="content" rows="6" style="padding:10px 15px; border:1px solid #cbd5e1; border-radius:8px; font-size:1rem; resize:vertical;" required>{{ post.content }}</textarea>
+        <button type="submit" style="padding:12px; background-color:#10b981; color:#fff; font-size:1rem; border:none; border-radius:8px; cursor:pointer; transition:background 0.3s;">Update</button>
+    </form>
+</div>
+
+{% endblock %}

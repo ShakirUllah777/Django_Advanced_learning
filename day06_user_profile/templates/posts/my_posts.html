@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="max-width:700px; margin:50px auto; padding:20px;">
+    <h2 style="text-align:center; color:#1e40af; margin-bottom:30px; font-size:2rem;">My Posts</h2>
+
+    {% for post in posts %}
+    <div style="background-color:#f8fafc; padding:20px; margin-bottom:20px; border-radius:12px; box-shadow:0 10px 20px rgba(0,0,0,0.1);">
+        <h3 style="color:#2563eb; font-size:1.5rem; margin-bottom:10px;">{{ post.title }}</h3>
+        <a href="{% url 'edit_post' post.id %}" style="padding:8px 16px; background-color:#3b82f6; color:#fff; border-radius:6px; text-decoration:none; font-size:0.95rem; transition:background 0.3s;">Edit</a>
+    </div>
+    {% empty %}
+        <p style="text-align:center; color:#6b7280; font-size:1rem;">You have no posts yet.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

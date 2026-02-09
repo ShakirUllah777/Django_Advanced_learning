@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="max-width:500px; margin:50px auto; padding:30px; background-color:#f8fafc; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center; color:#1e40af; margin-bottom:25px; font-size:2rem;">Profile</h2>
+    <p style="font-size:1.2rem; color:#374151; text-align:center;">Username: <span style="font-weight:600; color:#2563eb;">{{ request.user.username }}</span></p>
+</div>
+
+{% endblock %}

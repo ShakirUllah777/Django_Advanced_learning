@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="text-align:center; margin-top:50px;">
+    <h1 style="font-size:2.5rem; color:#1e3a8a; margin-bottom:20px;">Welcome</h1>
+
+    {% if user.is_authenticated %}
+        <p style="font-size:1.2rem; color:#374151;">Hello, <span style="font-weight:600; color:#2563eb;">{{ user.username }}</span>! Glad to see you back.</p>
+    {% else %}
+        <p style="font-size:1.2rem; color:#374151;">Please <a href="{% url 'login' %}" style="color:#3b82f6; text-decoration:underline;">login</a> or <a href="{% url 'signup' %}" style="color:#3b82f6; text-decoration:underline;">signup</a> to continue.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
