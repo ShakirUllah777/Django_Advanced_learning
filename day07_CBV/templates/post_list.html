@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}All Posts - BlogHub{% endblock %}
+
+{% block content %}
+  <h1>📚 All Posts</h1>
+
+  <form method="get">
+    <input type="text" name="q" placeholder="Search posts..." value="{{ request.GET.q }}">
+    <button type="submit">🔍 Search</button>
+  </form>
+
+  <hr>
+
+  {% for post in posts %}
+    <div class="post-item">
+      <h3>
+        <a href="{% url 'post-detail' post.pk %}">
+          {{ post.title }}
+        </a>
+      </h3>
+      <p>{{ post.content|truncatewords:20 }}</p>
+      <small>📅 {{ post.created_at|date:"M d, Y" }}</small>
+    </div>
+    <hr>
+  {% empty %}
+    <div class="empty-state">
+      <p>No posts found. Start creating some! 🎉</p>
+    </div>
+  {% endfor %}
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">← Previous</a>
+      {% endif %}
+
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next →</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Blog - Posts{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #2d3748;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Navigation Bar */
+    nav {
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      padding: 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: 70px;
+    }
+    
+    .nav-brand {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-bottom: 30px;
+      font-size: 32px;
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 15px;
+    }
+    
+    h3 a {
+      color: #667eea;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 20px;
+    }
+    
+    h3 a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+    
+    hr {
+      border: none;
+      border-top: 2px solid #e2e8f0;
+      margin: 25px 0;
+    }
+    
+    p {
+      color: #4a5568;
+      margin: 10px 0;
+    }
+    
+    small {
+      color: #a0aec0;
+      font-size: 12px;
+    }
+    
+    /* Search Form */
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    
+    input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    button {
+      padding: 12px 24px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Pagination */
+    .pagination {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #e2e8f0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .pagination a, .pagination span {
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .pagination a {
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+    
+    .pagination a:hover {
+      background-color: #667eea;
+      color: #fff;
+    }
+    
+    .pagination span {
+      color: #4a5568;
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .empty-state p {
+      font-size: 18px;
+      color: #718096;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">📝 BlogHub</a>
+      <ul class="nav-links">
+        <li><a href="{% url 'post-list' %}">All Posts</a></li>
+        <li><a href="{% url 'post-create' %}">Create Post</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    {% block content %} 
+    {% endblock %}
+  </div>
+</body>
+</html>
